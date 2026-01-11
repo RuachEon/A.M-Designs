@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to A.M. Designs</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23333%22/><text y=%22.9em%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2290%22 fill=%22%23fff%22>RE</text></svg>">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #ffffff;
+      background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)),
+                  url('https://images.unsplash.com/photo-1557683316-973673bafdad?w=1920&q=90') center/cover no-repeat fixed;
+      background-attachment: fixed;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+    .welcome-content {
+      max-width: 900px;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      letter-spacing: -2px;
+    }
+    .quote {
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      font-style: italic;
+      margin: 2rem 0;
+      opacity: 0.95;
+    }
+    .continue-btn {
+      background: #001f3f;
+      color: white;
+      padding: 1.2rem 3.5rem;
+      font-size: 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.4s;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      display: inline-block;
+    }
+    .continue-btn:hover {
+      background: #003366;
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-content">
+    <h1>Welcome to A.M. Designs</h1>
+    <p class="quote" id="randomQuote">Loading inspiring quote...</p>
+    <a href="home.html" class="continue-btn">Continue to Portfolio</a>
+  </div>
+
+  <script>
+    const quotes = [
+      "Design is not just what it looks like and feels like. Design is how it works. – Steve Jobs",
+      "Good design is obvious. Great design is transparent. – Joe Sparano",
+      "Design is thinking made visual. – Saul Bass",
+      "Simplicity is the ultimate sophistication. – Leonardo da Vinci",
+      "The public is more familiar with bad design than good design. – Paul Rand",
+      "Design is where science and art break even. – M. Naimark",
+      "Typography is the craft of endowing human language with a durable visual form. – Robert Bringhurst",
+      "The best designers sometimes work in the dark. – Massimo Vignelli",
+      "Design is a plan for arranging chaos. – Fred E. Allen",
+      "Creativity is intelligence having fun. – Albert Einstein",
+      "Have no fear of perfection – you'll never reach it. – Salvador Dalí",
+      "Design is intelligence made visible. – Alina Wheeler",
+      "Form follows function – that has been misunderstood. Form and function should be one. – Frank Lloyd Wright",
+      "A designer knows he has achieved perfection not when there is nothing left to add... – Antoine de Saint-Exupéry",
+      "The only way to do great work is to love what you do. – Steve Jobs",
+      "Design is the silent ambassador of your brand. – Paul Rand",
+      "Less is more. – Ludwig Mies van der Rohe",
+      "Good design is good business. – Thomas Watson Jr.",
+      "Design creates culture. Culture shapes values. Values determine the future. – Robert L. Peters",
+      "The function of design is letting design function. – Jarod Kintz"
+    ];
+
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    document.getElementById('randomQuote').textContent = quotes[randomIndex];
+  </script>
+</body>
+</html>
