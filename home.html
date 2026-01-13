@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - A.M. Designs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #ffffff;
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)),
+                  url('https://images.unsplash.com/photo-1557683316-973673bafdad?w=1920&q=90') center/cover no-repeat fixed;
+      background-attachment: fixed;
+      min-height: 100vh;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.7);
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1rem 6%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #00d4ff;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.8rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #00d4ff; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 26px;
+      height: 3px;
+      background: white;
+      transition: all 0.4s;
+    }
+
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+
+    main { padding-top: 80px; }
+
+    .hero {
+      text-align: center;
+      padding: 60px 5% 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 9vw, 5.8rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(90deg, #00d4ff, #007bff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(1.15rem, 3.5vw, 1.4rem);
+      max-width: 720px;
+      margin: 0 auto 1.8rem;
+      color: #e0e0e0;
+    }
+
+    .explore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.95rem 2.8rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #007bff, #00d4ff);
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+      transition: all 0.4s ease;
+    }
+
+    .explore-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 45px rgba(0, 123, 255, 0.55);
+      background: linear-gradient(135deg, #00d4ff, #007bff);
+    }
+
+    .btn-icon { font-size: 1.25rem; transition: transform 0.4s; }
+    .explore-btn:hover .btn-icon { transform: translateX(8px); }
+
+    .gallery {
+      padding: 2.5rem 5% 4rem;
+    }
+
+    .gallery h2 {
+      text-align: center;
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      color: #00d4ff;
+      margin-bottom: 1.8rem;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .image-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      transition: all 0.4s;
+    }
+
+    .image-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: clamp(220px, 40vw, 260px);
+      object-fit: cover;
+    }
+
+    .image-caption {
+      padding: 1rem;
+      background: rgba(0,0,0,0.75);
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .slogan {
+      text-align: center;
+      padding: 3rem 5% 4rem;
+    }
+
+    .big-slogan {
+      font-size: clamp(2.4rem, 6.5vw, 4.2rem);
+      font-style: italic;
+      color: #00d4ff;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 5%;
+      background: rgba(0,0,0,0.9);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .social-btn {
+      color: white;
+      font-size: 2rem;
+      transition: color 0.3s;
+    }
+
+    .social-btn:hover { color: #00d4ff; }
+
+    /* Mobile + Tablet Responsiveness */
+    @media (max-width: 992px) {
+      .image-grid { gap: 1.2rem; }
+      .hero { padding: 50px 5% 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.95);
+        padding: 2rem 5%;
+        gap: 1.5rem;
+      }
+      nav.active { display: flex; }
+      .image-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .hero h1 { font-size: 3.8rem; }
+      .hero p { font-size: 1.3rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 3rem; }
+      .hero p { font-size: 1.2rem; }
+      .explore-btn { padding: 0.9rem 2.5rem; font-size: 1.25rem; }
+      .image-card img { height: 220px; }
+      .gallery h2 { font-size: 2.2rem; }
+      .big-slogan { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="A.M. IMAGES/A.M. Logo.jpg" alt="A.M. Designs Logo" class="logo-img">
+    </div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="gradient-text">Creative Design<br>That Leaves a Mark</h1>
+        <p class="hero-subtitle">
+          A.M. Designs transforms bold ideas into powerful visuals
+          <span>captivating</span>, <span>meaningful</span>, and <span>unforgettable</span>.
+        </p>
+        <a href="projects.html" class="explore-btn">
+          Explore the Portfolio
+          <i class="fas fa-arrow-right btn-icon"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2>The Essence of Visual Creation</h2>
+      <div class="image-grid">
+        <div class="image-card">
+          <img src="https://i.ytimg.com/vi/uNOV6qh4Ixk/sddefault.jpg" alt="Creative workspace">
+          <div class="image-caption">Where ideas come to life</div>
+        </div>
+        <div class="image-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFswLHAX9kWbfuwrRkzbvE0uS4ec4Uydx_kg&s" alt="Designer at work">
+          <div class="image-caption">Precision meets creativity</div>
+        </div>
+        <div class="image-card">
+          <img src="https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2017/04/featuredtools4.png?w=1250&h=1120&crop=1" alt="Digital design tools">
+          <div class="image-caption">Tools of the modern designer</div>
+        </div>
+        <div class="image-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD0aq9kBT7MYR1BPrZAD0_fZUPwNwsWmLU-A&s" alt="Final design reveal">
+          <div class="image-caption">The moment of impact</div>
+        </div>
+        <div class="image-card">
+          <img src="https://bs-uploads.toptal.io/blackfish-uploads/components/open_graph_image/10773399/og_image/optimized/image_18__2_-7ad9edc4c1c68bacf2e162498dd6cb34.png" alt="Perfect Visualization">
+          <div class="image-caption">Perfect Visualization</div>
+        </div>
+        <div class="image-card">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/404/30bc34236149547.Y3JvcCwyNDI0LDE4OTYsMCww.jpg" alt="Carousels Designs">
+          <div class="image-caption">Carousels Designs</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slogan">
+      <blockquote class="big-slogan">"A Design with a difference"</blockquote>
+      <p style="font-size: 1.6rem;">Kolawole Ayomide</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 A.M. Designs • All Rights Reserved</p>
+    <div class="social-icons">
+      <a href="https://facebook.com/yourprofile" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://instagram.com/yourprofile" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://twitter.com/yourprofile" target="_blank" class="social-btn"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p class="creator">Want a website today? <a href="https://www.linkedin.com/in/enoch-balogun-875ba7341/" target="_blank">Contact website creator</a></p>
+  </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+      });
+    }
+
+    // Close menu on link click
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger?.classList.remove('active');
+        nav?.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

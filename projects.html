@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - A.M. Designs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #ffffff;
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)),
+                  url('https://images.unsplash.com/photo-1557683316-973673bafdad?w=1920&q=90') center/cover no-repeat fixed;
+      background-attachment: fixed;
+      min-height: 100vh;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.7);
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1rem 5%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #00d4ff;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.8rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #00d4ff; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 26px;
+      height: 3px;
+      background: white;
+      transition: all 0.4s;
+    }
+
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+
+    main {
+      padding-top: 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      margin: 2rem 0 1rem;
+      color: #ffffff;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 1.3rem;
+      color: #e0e0e0;
+      margin-bottom: 3rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.4rem;
+      padding: 0 5%;
+    }
+
+    .project-item {
+      cursor: pointer;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.4s;
+    }
+
+    .project-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+    }
+
+    .project-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .project-item p {
+      padding: 1rem;
+      font-size: 0.95rem;
+      text-align: center;
+      color: #e0ffff;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90vh;
+      text-align: center;
+    }
+
+    .modal-img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 0 60px rgba(0,212,255,0.5);
+    }
+
+    .modal-desc {
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 3.5rem;
+      cursor: pointer;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 4rem;
+      cursor: pointer;
+      padding: 0 20px;
+    }
+
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
+    footer {
+      text-align: center;
+      padding: 3.5rem 5% 2.5rem;
+      background: rgba(0,0,0,0.9);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin: 1.8rem 0;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.9rem 1.8rem;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      transition: all 0.4s;
+      border: 1px solid rgba(255,255,255,0.2);
+      min-width: 140px;
+      justify-content: center;
+    }
+
+    .social-btn:hover {
+      background: rgba(0,212,255,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,212,255,0.3);
+    }
+
+    .social-btn i {
+      font-size: 1.6rem;
+    }
+
+    .creator a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+
+    /* Mobile + Tablet Responsiveness */
+    @media (max-width: 1200px) {
+      .projects-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (max-width: 992px) {
+      .projects-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.95);
+        padding: 2rem 5%;
+        gap: 1.5rem;
+      }
+      nav.active { display: flex; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+      .modal-img { max-height: 70vh; }
+    }
+
+    @media (max-width: 480px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .modal-img { max-height: 65vh; }
+      .close { font-size: 3rem; right: 20px; }
+      .prev, .next { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="A.M. IMAGES/A.M. Logo.jpg" alt="A.M. Designs Logo" class="logo-img">
+    </div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="projects-main">
+    <h1>My Creative Works</h1>
+    <p class="intro">Click any piece to view in full detail (54 projects)</p>
+
+    <div class="projects-grid">
+      <div class="project-item" onclick="openModal(1)">
+        <img src="A.M. IMAGES/A.M. 1.jpg" alt="Project 1">
+        <p>Striking visual composition full of depth and character</p>
+      </div>
+      <div class="project-item" onclick="openModal(2)">
+        <img src="A.M. IMAGES/A.M. 2.jpg" alt="Project 2">
+        <p>Captivating artwork that draws the eye immediately</p>
+      </div>
+      <div class="project-item" onclick="openModal(3)">
+        <img src="A.M. IMAGES/A.M. 3.jpg" alt="Project 3">
+        <p>Sleek and modern creation with perfect harmony</p>
+      </div>
+      <div class="project-item" onclick="openModal(4)">
+        <img src="A.M. IMAGES/A.M. 4.jpg" alt="Project 4">
+        <p>Energetic piece bursting with creative expression</p>
+      </div>
+      <div class="project-item" onclick="openModal(5)">
+        <img src="A.M. IMAGES/A.M. 5.jpg" alt="Project 5">
+        <p>Refined design full of thoughtful details</p>
+      </div>
+      <div class="project-item" onclick="openModal(6)">
+        <img src="A.M. IMAGES/A.M. 6.jpg" alt="Project 6">
+        <p>Bold statement with strong visual personality</p>
+      </div>
+      <div class="project-item" onclick="openModal(7)">
+        <img src="A.M. IMAGES/A.M. 7.jpg" alt="Project 7">
+        <p>Elegant work with impeccable balance</p>
+      </div>
+      <div class="project-item" onclick="openModal(8)">
+        <img src="A.M. IMAGES/A.M. 8.jpg" alt="Project 8">
+        <p>Powerful visual that leaves a lasting impression</p>
+      </div>
+      <div class="project-item" onclick="openModal(9)">
+        <img src="A.M. IMAGES/A.M. 9.jpg" alt="Project 9">
+        <p>Sophisticated creation with timeless appeal</p>
+      </div>
+      <div class="project-item" onclick="openModal(10)">
+        <img src="A.M. IMAGES/A.M. 10.jpg" alt="Project 10">
+        <p>Sharp and contemporary artistic expression</p>
+      </div>
+      <div class="project-item" onclick="openModal(11)">
+        <img src="A.M. IMAGES/A.M. 11.jpg" alt="Project 11">
+        <p>Unique perspective brought to life beautifully</p>
+      </div>
+      <div class="project-item" onclick="openModal(12)">
+        <img src="A.M. IMAGES/A.M. 12.jpg" alt="Project 12">
+        <p>Masterful layout with perfect visual flow</p>
+      </div>
+      <div class="project-item" onclick="openModal(13)">
+        <img src="A.M. IMAGES/A.M. 13.jpg" alt="Project 13">
+        <p>Creative solution with striking impact</p>
+      </div>
+      <div class="project-item" onclick="openModal(14)">
+        <img src="A.M. IMAGES/A.M. 14.jpg" alt="Project 14">
+        <p>Polished and professional visual excellence</p>
+      </div>
+      <div class="project-item" onclick="openModal(15)">
+        <img src="A.M. IMAGES/A.M. 15.jpg" alt="Project 15">
+        <p>Compelling narrative told through visuals</p>
+      </div>
+      <div class="project-item" onclick="openModal(16)">
+        <img src="A.M. IMAGES/A.M. 16.jpg" alt="Project 16">
+        <p>Harmonious blend of color and form</p>
+      </div>
+      <div class="project-item" onclick="openModal(17)">
+        <img src="A.M. IMAGES/A.M. 17.jpg" alt="Project 17">
+        <p>Innovative concept brought to life boldly</p>
+      </div>
+      <div class="project-item" onclick="openModal(18)">
+        <img src="A.M. IMAGES/A.M. 18.jpg" alt="Project 18">
+        <p>Confident design with strong presence</p>
+      </div>
+      <div class="project-item" onclick="openModal(19)">
+        <img src="A.M. IMAGES/A.M. 19.jpg" alt="Project 19">
+        <p>Beautifully balanced creative execution</p>
+      </div>
+      <div class="project-item" onclick="openModal(20)">
+        <img src="A.M. IMAGES/A.M. 20.jpg" alt="Project 20">
+        <p>Visually rich and emotionally engaging</p>
+      </div>
+      <div class="project-item" onclick="openModal(21)">
+        <img src="A.M. IMAGES/A.M. 21.jpg" alt="Project 21">
+        <p>Captivating artwork full of depth</p>
+      </div>
+      <div class="project-item" onclick="openModal(22)">
+        <img src="A.M. IMAGES/A.M. 22.jpg" alt="Project 22">
+        <p>Striking creation with perfect execution</p>
+      </div>
+      <div class="project-item" onclick="openModal(23)">
+        <img src="A.M. IMAGES/A.M. 23.jpg" alt="Project 23">
+        <p>Elegant and powerful visual statement</p>
+      </div>
+      <div class="project-item" onclick="openModal(24)">
+        <img src="A.M. IMAGES/A.M. 24.jpg" alt="Project 24">
+        <p>Creative vision brought to life brilliantly</p>
+      </div>
+      <div class="project-item" onclick="openModal(25)">
+        <img src="A.M. IMAGES/A.M. 25.jpg" alt="Project 25">
+        <p>Timeless design with strong impact</p>
+      </div>
+      <div class="project-item" onclick="openModal(26)">
+        <img src="A.M. IMAGES/A.M. 26.jpg" alt="Project 26">
+        <p>Modern masterpiece full of character</p>
+      </div>
+      <div class="project-item" onclick="openModal(27)">
+        <img src="A.M. IMAGES/A.M. 27.jpg" alt="Project 27">
+        <p>Artistic excellence in every detail</p>
+      </div>
+      <div class="project-item" onclick="openModal(28)">
+        <img src="A.M. IMAGES/A.M. 28.jpg" alt="Project 28">
+        <p>Powerful and unforgettable visual piece</p>
+      </div>
+      <div class="project-item" onclick="openModal(29)">
+        <img src="A.M. IMAGES/A.M. 29.jpg" alt="Project 29">
+        <p>Sophisticated work with deep meaning</p>
+      </div>
+      <div class="project-item" onclick="openModal(30)">
+        <img src="A.M. IMAGES/A.M. 30.jpg" alt="Project 30">
+        <p>Creative brilliance on full display</p>
+      </div>
+      <div class="project-item" onclick="openModal(31)">
+        <img src="A.M. IMAGES/A.M. 31.jpg" alt="Project 31">
+        <p>Visually stunning and thoughtfully done</p>
+      </div>
+      <div class="project-item" onclick="openModal(32)">
+        <img src="A.M. IMAGES/A.M. 32.jpg" alt="Project 32">
+        <p>Unique and captivating artistic creation</p>
+      </div>
+      <div class="project-item" onclick="openModal(33)">
+        <img src="A.M. IMAGES/A.M. 33.jpg" alt="Project 33">
+        <p>Impressive design with bold confidence</p>
+      </div>
+      <div class="project-item" onclick="openModal(34)">
+        <img src="A.M. IMAGES/A.M. 34.jpg" alt="Project 34">
+        <p>Elegant solution with perfect execution</p>
+      </div>
+      <div class="project-item" onclick="openModal(35)">
+        <img src="A.M. IMAGES/A.M. 35.jpg" alt="Project 35">
+        <p>Striking visual full of creative energy</p>
+      </div>
+      <div class="project-item" onclick="openModal(36)">
+        <img src="A.M. IMAGES/A.M. 36.jpg" alt="Project 36">
+        <p>Polished artwork with strong appeal</p>
+      </div>
+      <div class="project-item" onclick="openModal(37)">
+        <img src="A.M. IMAGES/A.M. 37.jpg" alt="Project 37">
+        <p>Beautifully crafted creative expression</p>
+      </div>
+      <div class="project-item" onclick="openModal(38)">
+        <img src="A.M. IMAGES/A.M. 38.jpg" alt="Project 38">
+        <p>Powerful design that stands out</p>
+      </div>
+      <div class="project-item" onclick="openModal(39)">
+        <img src="A.M. IMAGES/A.M. 39.jpg" alt="Project 39">
+        <p>Sophisticated visual with deep impact</p>
+      </div>
+      <div class="project-item" onclick="openModal(40)">
+        <img src="A.M. IMAGES/A.M. 40.jpg" alt="Project 40">
+        <p>Creative work full of personality</p>
+      </div>
+      <div class="project-item" onclick="openModal(41)">
+        <img src="A.M. IMAGES/A.M. 41.jpg" alt="Project 41">
+        <p>Visually rich and emotionally strong</p>
+      </div>
+      <div class="project-item" onclick="openModal(42)">
+        <img src="A.M. IMAGES/A.M. 42.jpg" alt="Project 42">
+        <p>Masterful creation with perfect harmony</p>
+      </div>
+      <div class="project-item" onclick="openModal(43)">
+        <img src="A.M. IMAGES/A.M. 43.jpg" alt="Project 43">
+        <p>Bold and unforgettable artistic piece</p>
+      </div>
+      <div class="project-item" onclick="openModal(44)">
+        <img src="A.M. IMAGES/A.M. 44.jpg" alt="Project 44">
+        <p>Elegant design with strong presence</p>
+      </div>
+      <div class="project-item" onclick="openModal(45)">
+        <img src="A.M. IMAGES/A.M. 45.jpg" alt="Project 45">
+        <p>Creative excellence in every element</p>
+      </div>
+      <div class="project-item" onclick="openModal(46)">
+        <img src="A.M. IMAGES/A.M. 46.jpg" alt="Project 46">
+        <p>Visually captivating and expertly done</p>
+      </div>
+      <div class="project-item" onclick="openModal(47)">
+        <img src="A.M. IMAGES/A.M. 47.jpg" alt="Project 47">
+        <p>Powerful work with deep emotional appeal</p>
+      </div>
+      <div class="project-item" onclick="openModal(48)">
+        <img src="A.M. IMAGES/A.M. 48.jpg" alt="Project 48">
+        <p>Sophisticated creation full of life</p>
+      </div>
+      <div class="project-item" onclick="openModal(49)">
+        <img src="A.M. IMAGES/A.M. 49.jpg" alt="Project 49">
+        <p>Striking visual with timeless beauty</p>
+      </div>
+      <div class="project-item" onclick="openModal(50)">
+        <img src="A.M. IMAGES/A.M. 50.jpg" alt="Project 50">
+        <p>Creative masterpiece with bold vision</p>
+      </div>
+      <div class="project-item" onclick="openModal(51)">
+        <img src="A.M. IMAGES/A.M. 51.jpg" alt="Project 51">
+        <p>Impressive design with perfect execution</p>
+      </div>
+      <div class="project-item" onclick="openModal(52)">
+        <img src="A.M. IMAGES/A.M. 52.jpg" alt="Project 52">
+        <p>Elegant artwork full of character</p>
+      </div>
+      <div class="project-item" onclick="openModal(53)">
+        <img src="A.M. IMAGES/A.M. 53.jpg" alt="Project 53">
+        <p>Powerful creative statement that inspires</p>
+      </div>
+      <div class="project-item" onclick="openModal(54)">
+        <img src="A.M. IMAGES/A.M. 54.jpg" alt="Project 54">
+        <p>Final showcase of pure creative brilliance</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close" onclick="event.stopPropagation(); closeModal()">×</span>
+  <div class="modal-content">
+    <img class="modal-img" id="modalImg" src="" alt="Project Full View">
+    <div class="modal-desc" id="modalDesc"></div>
+  </div>
+</div>
+
+  <footer>
+    <p>© 2026 A.M. Designs • All Rights Reserved</p>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
+      <a href="https://instagram.com" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="https://linkedin.com" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+      <a href="https://twitter.com" target="_blank" class="social-btn"><i class="fab fa-twitter"></i> Twitter</a>
+    </div>
+    <p class="creator">Want a website today? <a href="https://www.linkedin.com/in/enoch-balogun-875ba7341/" target="_blank">Contact website creator</a></p>
+  </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+      });
+    }
+
+    // Close menu on link click
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger?.classList.remove('active');
+        nav?.classList.remove('active');
+      });
+    });
+
+    // Modal Controls
+    let currentIndex = 0;
+    const totalItems = 54;
+
+    function openModal(index) {
+      currentIndex = index - 1;
+      document.getElementById('modal').style.display = "flex";
+      document.getElementById('modalImg').src = `A.M. IMAGES/A.M. ${index}.jpg`;
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = "none";
+    }
+
+    function changeImage(dir) {
+      currentIndex = (currentIndex + dir + totalItems) % totalItems;
+      document.getElementById('modalImg').src = `A.M. IMAGES/A.M. ${currentIndex + 1}.jpg`;
+    }
+
+    // Close modal on outside click
+    const modal = document.getElementById('modal');
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (modal.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') changeImage(-1);
+        if (e.key === 'ArrowRight') changeImage(1);
+        if (e.key === 'Escape') closeModal();
+      }
+    });
+  </script>
+</body>
+</html>

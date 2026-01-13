@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - A.M. Designs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #ffffff;
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)),
+                  url('https://images.unsplash.com/photo-1557683316-973673bafdad?w=1920&q=90') center/cover no-repeat fixed;
+      background-attachment: fixed;
+      min-height: 100vh;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.7);
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1rem 5%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #00d4ff;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.8rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #00d4ff; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 26px;
+      height: 3px;
+      background: white;
+      transition: all 0.4s;
+    }
+
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+
+    main {
+      padding-top: 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-hero {
+      text-align: center;
+      padding: 60px 5% 40px;
+    }
+
+    .about-logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 16px;
+      border: 4px solid #00d4ff;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    .about-hero h1 {
+      font-size: clamp(3rem, 8vw, 4.8rem);
+      font-weight: 900;
+      margin-bottom: 0.8rem;
+    }
+
+    .tagline {
+      font-size: clamp(1.4rem, 4vw, 1.7rem);
+      color: #00d4ff;
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    .story, .vision {
+      padding: 2.5rem 5%;
+      font-size: clamp(1.1rem, 3.2vw, 1.25rem);
+      color: #e0e0e0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .story h2, .vision h2 {
+      color: #00d4ff;
+      font-size: clamp(2rem, 5.5vw, 2.4rem);
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    .gallery-about {
+      padding: 2rem 5% 4rem;
+    }
+
+    .gallery-about h2 {
+      text-align: center;
+      font-size: clamp(2rem, 5.5vw, 2.4rem);
+      color: #00d4ff;
+      margin-bottom: 1.8rem;
+    }
+
+    .image-grid-about {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.8rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .image-card-about {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+      transition: all 0.4s;
+    }
+
+    .image-card-about:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.5);
+    }
+
+    .image-card-about img {
+      width: 100%;
+      height: clamp(240px, 45vw, 320px);
+      object-fit: cover;
+    }
+
+    .slogan-section {
+      text-align: center;
+      padding: 3rem 5% 5rem;
+    }
+
+    .big-slogan {
+      font-size: clamp(2.4rem, 6.5vw, 4.2rem);
+      font-style: italic;
+      color: #00d4ff;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3.5rem 5% 2.5rem;
+      background: rgba(0,0,0,0.9);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin: 1.8rem 0;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.9rem 1.8rem;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      transition: all 0.4s;
+      border: 1px solid rgba(255,255,255,0.2);
+      min-width: 140px;
+      justify-content: center;
+    }
+
+    .social-btn:hover {
+      background: rgba(0,212,255,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,212,255,0.3);
+    }
+
+    .social-btn i {
+      font-size: 1.6rem;
+    }
+
+    .creator a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+
+    /* Mobile + Tablet Optimization */
+    @media (max-width: 992px) {
+      .image-grid-about { gap: 1.5rem; }
+      .about-hero { padding: 50px 5% 30px; }
+      .story, .vision { padding: 2rem 5%; }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.95);
+        padding: 2rem 5%;
+        gap: 1.5rem;
+      }
+      nav.active { display: flex; }
+      .image-grid-about { grid-template-columns: 1fr; }
+      .about-hero h1 { font-size: 3.8rem; }
+      .tagline { font-size: 1.5rem; }
+      .social-btn { font-size: 1.1rem; padding: 0.8rem 1.5rem; min-width: 130px; }
+    }
+
+    @media (max-width: 480px) {
+      .about-hero h1 { font-size: 3rem; }
+      .tagline { font-size: 1.4rem; }
+      .story, .vision { font-size: 1.15rem; }
+      .big-slogan { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="A.M. IMAGES/A.M. Logo.jpg" alt="A.M. Designs Logo" class="logo-img">
+    </div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <img src="A.M. IMAGES/A.M. Logo.jpg" alt="A.M. Designs Logo" class="about-logo">
+      <h1>Kolawole Ayomide</h1>
+      <p class="tagline">Creative Director & Graphic Designer</p>
+    </section>
+
+    <section class="story">
+      <h2>My Journey</h2>
+      <p>Kolawole Ayomide is a passionate graphic designer who believes design is more than aesthetics it's communication, emotion, and impact.</p>
+      <p>From an early love for art and technology, he discovered his calling: turning ideas into visuals that leave a lasting impression. Over the years, he has mastered branding, digital media, print, motion graphics, and personal projects always with the same dedication to originality and excellence.</p>
+    </section>
+
+    <section class="gallery-about">
+      <h2>Behind the Vision</h2>
+      <div class="image-grid-about">
+        <div class="image-card-about">
+          <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800" alt="Designer at work">
+        </div>
+        <div class="image-card-about">
+          <img src="https://images.unsplash.com/photo-1555066931-bf19c9d7c5c5?w=800" alt="Creative process">
+        </div>
+      </div>
+    </section>
+
+    <section class="vision">
+      <h2>My Philosophy</h2>
+      <p>I believe design should make a difference. It should move people, build trust, and feel timeless. I don’t follow trends I aim to set them. Every project gets the same passion, detail, and creative energy.</p>
+      <p>From building strong brand identities to preserving memories through motion, my goal is always the same: to deliver work that resonates deeply and lasts.</p>
+    </section>
+
+    <section class="slogan-section">
+      <blockquote class="big-slogan">"A Design with a difference"</blockquote>
+      <p>Kolawole Ayomide</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 A.M. Designs • All Rights Reserved</p>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
+      <a href="https://instagram.com" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="https://linkedin.com" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+      <a href="https://twitter.com" target="_blank" class="social-btn"><i class="fab fa-twitter"></i> Twitter</a>
+    </div>
+    <p class="creator">Want a website today? <a href="https://www.linkedin.com/in/enoch-balogun-875ba7341/" target="_blank">Contact website creator</a></p>
+  </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+      });
+    }
+
+    // Close menu on link click
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger?.classList.remove('active');
+        nav?.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
